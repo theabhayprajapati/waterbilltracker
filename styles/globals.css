@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.billStatus{
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    /* background op 90 */
+    background: rgba(0, 0, 0, .8);
+    height: 60px;
+    font-size: 23px;
+}   
+.recordButton{
+    /* absolute bottom button */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    border-radius: 8px;
+    /* gradient backdround right to left blue to voilet to purple */
+    background: linear-gradient(to right, #00b8d4, #0052cc, #5f27cd);
+}

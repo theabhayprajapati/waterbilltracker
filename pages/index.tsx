@@ -1,84 +1,95 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
+// set type for local storage
+type paymentType = {
+  amount: number,
+  date: string,
+}
+type monthllyBill = {
+  amount: number,
+  total: paymentType[],
+}
 const Home: NextPage = () => {
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const [totalMount, setTotalMount] = useState(0)
+  const [monthlyBill, setMonthlyBill] = useState<monthllyBill>({
+    amount: 0,
+    total: [],
+  })
+  // console.log(localStorage.getItem('monthlyBill'))
+
+  // on click increament by 60
+  const handleIncrement = () => {
+    //  this function can run once in day
+    // vibrate() onlickc
+    navigator.vibrate(200);
+    // ping sound
+    const audio = new Audio('/sound/ping.mp3')
+    audio.play()
+
+
+    localStorage.setItem('monthlyBill', JSON.stringify(0))
+    setTotalMount(totalMount + 60)
+    // push to payments
+    console.log(totalMount)
+    // increment monthly bill
+    setMonthlyBill({
+      amount: monthlyBill.amount + 60,
+      total: [...monthlyBill.total, {
+        amount: 60,
+        date: time
+      }]
+    })
+    // set local storage
+  }
+  useEffect(() => {
+    console.log(monthlyBill)
+    // handleLocalStorage()
+    // save to session storage
+    // save to local storage
+    sessionStorage.setItem('monthlyBill', JSON.stringify(monthlyBill))
+  }, [monthlyBill])
+
+  // set to local storage
+  const handleLocalStorage = () => {
+    localStorage.setItem('monthlyBill', JSON.stringify(monthlyBill))
+  }
+
+  const printTotalPayment = () => {
+    console.log(totalMount)
+    console.log(monthlyBill)
+    console.log(sessionStorage.getItem('monthlyBill'))
+  }
+
+  // clear everything
+  const clearAll = () => {
+    setTotalMount(0)
+    setMonthlyBill({
+      amount: 0,
+      total: [],
+    })
+    // localStorage.clear()
+
+  }
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <div className='min-h-screen flex flex-col justify-between border-2 w-screen'>
+      {/* center heading */}
+      <div className='flex justify-center items-center billStatus'>
+        <div className='flex flex-col justify-center items-center'>
+          <h1 className='text-4xl font-bold text-center'>
+            Monthly Bill: {monthlyBill.amount}
+          </h1>
         </div>
-      </main>
+      </div>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
+
+      {/* Add water button */}
+      <div className='recordButton' onClick={handleIncrement}>
+        Record Bill
+      </div>
     </div>
   )
 }
