@@ -1,7 +1,7 @@
-const INTER_ELEMENT_GAP = 200;
-const INTER_LETTER_GAP = 500;
-const DOT_DURATION = 200;
-const DASH_DURATION = 500;
+const INTER_ELEMENT_GAP = 20;
+const INTER_LETTER_GAP = 50;
+const DOT_DURATION = 20;
+const DASH_DURATION = 50;
 
 const MORSE_CODE = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -36,8 +36,8 @@ function morseToVibration(morseCode: string) {
 }
 console.log('Morse code vibration pattern:');
 console.log(morseToVibration(MORSE_CODE_MAP[7]));
-// export {
-//     morseToVibration,
-//     MORSE_CODE_MAP,
-// };
+export {
+    morseToVibration,
+    MORSE_CODE_MAP,
+};
 
