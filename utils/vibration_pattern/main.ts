@@ -19,6 +19,7 @@ const MORSE_CODE_MAP: TMORSE_CODE_MAP = {
     '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
 };
 function morseToVibration(morseCode: string) {
+    console.log(morseCode);
     let pattern: number[] = [];
     for (const ch of morseCode) {
         if (ch === '.') {

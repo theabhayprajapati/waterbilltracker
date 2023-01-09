@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { MORSE_CODE_MAP, morseToVibration } from '../utils/vibration_pattern/main';
-
+import {MORSE_CODE_MAP, morseToVibration} from '../utils/vibration_pattern/main';
 // set type for local storage
 type paymentType = {
   amount: number,
@@ -75,15 +74,10 @@ const Home: NextPage = () => {
     // localStorage.clear()
 
   }
-  const onChangeMakeVibration = (e: any) => {
-    // check for which key alphabet
-    const key = e.target.value;
-    // only take alphabets and numbers
-    const alphabet: string = key.replace(/[^a-zA-Z0-9]/g, '');
-    // convert to string
-    const morseCode = MORSE_CODE_MAP[alphabet];
-    const vibrationPattern = morseToVibration(morseCode);
-    navigator.vibrate(vibrationPattern);
+  const onChangeMakeVibration = (event: any) => {
+      const word = event.target.value[event.target.value.length - 1];
+      const vibrate = morseToVibration(MORSE_CODE_MAP[word]);
+      navigator.vibrate(vibrate);
   }
   return (
     <div className='bg-black min-h-screen flex flex-col justify-between w-screen'>
