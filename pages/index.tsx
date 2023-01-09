@@ -95,7 +95,18 @@ const Home: NextPage = () => {
           Timeline
         </h1>
         <div className='p-5 showTimeline'>
-          <input type="text" onChange={onChangeMakeVibration} />
+          <input type="text" onChange={onChangeMakeVibration} style={{
+            width: '100%',
+            height: '50px',
+            fontSize: '30px',
+            padding: '10px',
+            border: 'none',
+            outline: 'none',
+            color: 'black',
+            backgroundColor: 'white',
+            borderRadius: '10px',
+            
+          }} />
           {monthlyBill.total.sort().map((payment, index) => {
             return (
               <div key={index} className='flex  justify-between items-center timeLineItem'>
