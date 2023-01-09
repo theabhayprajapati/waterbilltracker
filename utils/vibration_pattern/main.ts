@@ -36,8 +36,8 @@ function morseToVibration(morseCode: string) {
 }
 console.log('Morse code vibration pattern:');
 console.log(morseToVibration(MORSE_CODE_MAP[7]));
-export {
-    morseToVibration,
-    MORSE_CODE_MAP,
-};
+// export {
+//     morseToVibration,
+//     MORSE_CODE_MAP,
+// };
 

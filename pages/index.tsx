@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import {MORSE_CODE_MAP, morseToVibration} from '../utils/vibration_pattern/main';
+import { MORSE_CODE_MAP, morseToVibration } from '../utils/vibration_pattern/main';
 // set type for local storage
 type paymentType = {
   amount: number,
@@ -75,9 +75,13 @@ const Home: NextPage = () => {
 
   }
   const onChangeMakeVibration = (event: any) => {
-      const word = event.target.value[event.target.value.length - 1];
-      const vibrate = morseToVibration(MORSE_CODE_MAP[word]);
-      navigator.vibrate(vibrate);
+    const word = event.target.value[event.target.value.length - 1];
+    const vibrate = morseToVibration(MORSE_CODE_MAP[word]);
+    navigator.vibrate([
+      500, 200, 500, 200,
+      200, 200, 200, 200,
+      200, 500
+    ]);
   }
   return (
     <div className='bg-black min-h-screen flex flex-col justify-between w-screen'>
@@ -105,7 +109,7 @@ const Home: NextPage = () => {
             color: 'black',
             backgroundColor: 'white',
             borderRadius: '10px',
-            
+
           }} />
           {monthlyBill.total.sort().map((payment, index) => {
             return (
