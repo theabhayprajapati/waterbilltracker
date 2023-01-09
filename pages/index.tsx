@@ -1,5 +1,6 @@
-import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import { MORSE_CODE_MAP, morseToVibration } from '../utils/vibration_pattern/main';
 
 // set type for local storage
 type paymentType = {
@@ -47,13 +48,10 @@ const Home: NextPage = () => {
   }
   useEffect(() => {
     console.log(monthlyBill)
-    // handleLocalStorage()
-    // save to session storage
-    // save to local storage
     sessionStorage.setItem('monthlyBill', JSON.stringify(monthlyBill))
     console.log(sessionStorage.getItem('monthlyBill'))
     // save to local storage
-    
+
   }, [monthlyBill])
 
   // set to local storage
@@ -77,7 +75,16 @@ const Home: NextPage = () => {
     // localStorage.clear()
 
   }
-
+  const onChangeMakeVibration = (e: any) => {
+    // check for which key alphabet
+    const key = e.target.value;
+    // only take alphabets and numbers
+    const alphabet: string = key.replace(/[^a-zA-Z0-9]/g, '');
+    // convert to string
+    const morseCode = MORSE_CODE_MAP[alphabet];
+    const vibrationPattern = morseToVibration(morseCode);
+    navigator.vibrate(vibrationPattern);
+  }
   return (
     <div className='bg-black min-h-screen flex flex-col justify-between w-screen'>
       {/* center heading */}
@@ -94,6 +101,7 @@ const Home: NextPage = () => {
           Timeline
         </h1>
         <div className='p-5 showTimeline'>
+          <input type="text" onChange={onChangeMakeVibration} />
           {monthlyBill.total.sort().map((payment, index) => {
             return (
               <div key={index} className='flex  justify-between items-center timeLineItem'>
